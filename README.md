@@ -29,14 +29,14 @@ Package: `document-reader-capacitor`.
 
 ## <img src="https://api.iconify.design/lucide/clipboard-list.svg?color=%230F766E" width="24" height="24" alt="" /> Basics
 
-Read this once before cloning. Plugin demos ship a **bundled license** for the sample Android / iOS ids. Production apps need a new key. [Initial commands](#-initial-commands) lists clone → run → activate. The example uses the engines already in this repo. Your app installs tag `v1.0.0`.
+Read this once before cloning. Plugin demos ship a **bundled license** for the sample Android / iOS ids. Production apps need a new key. [Initial commands](#-initial-commands) lists clone → place runtime → run → activate options.
 
 | Topic | Basic information |
 | --- | --- |
 | **Product** | On-device **ID document recognition** Ionic Capacitor plugin (KYC / eKYC) |
 | **Documents** | Passport, national ID, driver license |
 | **Extracts** | OCR · passport MRZ · barcode / QR · optional document liveness |
-| **Runtime** | Example uses the engines already in this repo. Your app installs tag `v1.0.0` |
+| **Runtime** | Android AAR + iOS framework from Drive zips `PENDING` |
 | **Demo id** | `com.identixia.documentreader` / `.app` (until **12 Aug 2027**) |
 | **Tools** | npm · Capacitor · physical arm64 Android / iPhone |
 | **UI** | Wide Camera Home · Gallery / About · one-scroll Result |
@@ -49,13 +49,14 @@ Read this once before cloning. Plugin demos ship a **bundled license** for the s
 
 Must-know path for the sample / example app.
 
-### <img src="https://img.shields.io/badge/-1-0F766E?style=for-the-badge" alt="" /> Clone and run
+### <img src="https://img.shields.io/badge/-1-0F766E?style=for-the-badge" alt="" /> Clone, place runtime, run
 
 ```bash
 git clone https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor.git
 cd ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor
 npm install && npm run build
 cd example && npm install
+# place Android + iOS runtimes
 npm run build && npx cap sync
 npx cap open android   # or: npx cap open ios
 ```
@@ -100,15 +101,17 @@ Wait until Home = **Ready**, then Camera / Gallery. Confirm Result / About shows
 
 ## <img src="https://api.iconify.design/lucide/package.svg?color=%230F766E" width="24" height="24" alt="" /> Install
 
-The example uses `example/android/libdocsdk/` and `ios/Frameworks/` when those files are already here. `npx cap sync` downloads the `v1.0.0` GitHub Releases only when a file is missing.
+The example builds with native runtimes already in the clone when present. Missing files are fetched from the `v1.0.0` GitHub Releases.
 
-Your app:
+| | Path after unzip |
+| --- | --- |
+| <img src="https://cdn.simpleicons.org/android/3DDC84" width="14" height="14" alt="" /> Android | `example/android/libdocsdk/documentreadersdk.aar` |
+| <img src="https://cdn.simpleicons.org/apple/000000" width="14" height="14" alt="" /> iOS | `ios/Frameworks/docsdk.framework` |
 
-```bash
-npm install github:Identixia/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor#v1.0.0
-npx cap sync
-```
 
+Customer apps depend on `document-reader-capacitor` from this repo at tag `v1.0.0` (Flutter: git; React Native / Ionic: npm / github). Do **not** use a monorepo `path:` dependency in shipping apps.
+
+Prefer package kits (`DocumentCapture`, `ResultParser`) for the same camera / Result path as the sample. Keep `useLegacyPackaging = true` on Android when required by the engine.
 
 ---
 
@@ -119,6 +122,7 @@ git clone https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Dete
 cd ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor
 npm install && npm run build
 cd example && npm install
+# place Android + iOS runtimes
 npm run build && npx cap sync
 npx cap open android   # or: npx cap open ios
 ```
@@ -134,9 +138,9 @@ Demo ids: Android `com.identixia.documentreader` · iOS `com.identixia.documentr
 
 The code below shows how to use the license:
 
-https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor/blob/a9b807177dc6c0a84ecd6a959fd37038664f349e/example/src/license.ts#L7-L17
+[https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor/blob/d9f1feaff33d7d18d36aea500b239402b3fb0ced/example/src/license.ts#L7-L17](https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor/blob/d9f1feaff33d7d18d36aea500b239402b3fb0ced/example/src/license.ts#L7-L17)
 
-https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor/blob/a9b807177dc6c0a84ecd6a959fd37038664f349e/example/src/SdkContext.tsx#L62-L71
+[https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor/blob/d9f1feaff33d7d18d36aea500b239402b3fb0ced/example/src/SdkContext.tsx#L60-L70](https://github.com/identixia-IDV/ID-Document-Recognition-Liveness-Detection-Ionic-Capacitor/blob/d9f1feaff33d7d18d36aea500b239402b3fb0ced/example/src/SdkContext.tsx#L60-L70)
 
 Capabilities: document recognition and/or document liveness. Please [contact us](#-contact) to get a license for **your own app**.
 
@@ -144,14 +148,27 @@ Capabilities: document recognition and/or document liveness. Please [contact us]
 
 ## <img src="https://api.iconify.design/lucide/puzzle.svg?color=%230F766E" width="24" height="24" alt="" /> Use in your app
 
-Install `document-reader-capacitor` at tag `v1.0.0`, run `npx cap sync`, then call activate → init → recognize.
+Install `document-reader-capacitor`, sync Cap native projects with the AAR + framework, then call the plugin activate / init / recognize APIs from your Ionic app.
+
+Depend on `document-reader-capacitor` via **git** `ref: v1.0.0` (not a monorepo `path:`). Ship or download the AAR + framework, then activate → init → recognize.
 
 ---
 
 ## <img src="https://api.iconify.design/lucide/images.svg?color=%230F766E" width="24" height="24" alt="" /> Screenshots
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/identixia-IDV/identixia-assets/main/screenshots/document-reader/desktop/demo-ui-result.png" width="720" alt="ID document recognition Gradio demo — front and back capture, fields, and cropped images" />
+<img src="https://raw.githubusercontent.com/identixia-IDV/identixia-assets/main/screenshots/document-reader/desktop/demo-ui-status.png" width="720" alt="Document result status" />
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/identixia-IDV/identixia-assets/main/screenshots/document-reader/desktop/demo-ui-fields-code.png" width="420" alt="CODE fields" />
+<img src="https://raw.githubusercontent.com/identixia-IDV/identixia-assets/main/screenshots/document-reader/desktop/demo-ui-fields-visual.png" width="420" alt="VISUAL fields" />
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/identixia-IDV/identixia-assets/main/screenshots/document-reader/desktop/demo-ui-images.png" width="420" alt="Cropped document images" />
+<img src="https://raw.githubusercontent.com/identixia-IDV/identixia-assets/main/screenshots/document-reader/desktop/demo-ui-checks-validity.png" width="420" alt="Validity checks" />
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/identixia-IDV/identixia-assets/main/screenshots/document-reader/desktop/demo-ui-checks-liveness.png" width="420" alt="Liveness checks" />
 </p>
 
 ---
