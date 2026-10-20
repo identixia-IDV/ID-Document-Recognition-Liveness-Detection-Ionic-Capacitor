@@ -1,0 +1,5 @@
+framework module documentfullsdk {
+  umbrella header "DocumentFullSDK.h"
+  export *
+  module * { export * }
+}
